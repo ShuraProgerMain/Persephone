@@ -1,4 +1,6 @@
-﻿namespace CARDINAL.Persephone.Configs;
+﻿using System.Collections.ObjectModel;
+
+namespace CARDINAL.Persephone.Configs;
 
 public class BranchSettingConfig
 {
@@ -8,12 +10,14 @@ public class BranchSettingConfig
     private string _repositoryPath = string.Empty;
     private byte _defaultReceivedCommitRange = 10;
 
+    private readonly IList<string>? _keyMessages;
+
     public string BranchName => _branchName;
     public string InitialLogKey => _initialLogKey;
     public string BuildKeyMessage => _buildKeyMessage;
     public string RepositoryPath => _repositoryPath;
     public byte DefaultReceivedCommitRange => _defaultReceivedCommitRange;
-
+    public IList<string>? KeyMessages => _keyMessages;
 
     /// <summary>
     /// BranchSettingConfig constructor. If you want update branch setting need push new SettingsConfig with new data
@@ -21,7 +25,7 @@ public class BranchSettingConfig
     /// <param name="branchName">Name branch format: If local {"main"} else if remote {"origin/main"}</param>
     /// <param name="initialLogKey">The commit text below which the generator will not go down
     /// </param>
-    /// <param name="buildKeyMessage">
+    /// <param name="keyMessages">
     /// The keyword or sentence for which the beginning of each version will be located
     /// </param>
     /// <param name="repositoryPath">
@@ -32,20 +36,20 @@ public class BranchSettingConfig
     /// </param>
     /// <example>
     /// <code>
-    /// new SettingsConfig("main", "Changelog Init", "Build:", @"D:\UnityProjects\RustAndUnityTest\Assets\Plugins\TestDLL", 10); 
+    /// new SettingsConfig("main", "Changelog Init", {"Build:", "Release:", "Debug:"}, @"D:\UnityProjects\RustAndUnityTest\Assets\Plugins\TestDLL", 10); 
     /// </code>
     /// </example>
     public BranchSettingConfig(
         string branchName = "main",
         string initialLogKey = "",
-        string buildKeyMessage = "",
+        IList<string>? keyMessages = null,
         string repositoryPath = "",
         byte defaultReceivedCommitRange = 10
     )
     {
         _branchName = branchName;
         _initialLogKey = initialLogKey == string.Empty ? _initialLogKey : initialLogKey;
-        _buildKeyMessage = buildKeyMessage == string.Empty ? _buildKeyMessage : buildKeyMessage;
+        _keyMessages = keyMessages ?? _keyMessages;
         _repositoryPath = repositoryPath == string.Empty ? _repositoryPath : repositoryPath;
         _defaultReceivedCommitRange =
             defaultReceivedCommitRange == 10 ? _defaultReceivedCommitRange : defaultReceivedCommitRange;

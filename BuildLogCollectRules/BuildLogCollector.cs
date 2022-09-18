@@ -39,6 +39,7 @@ internal class BuildLogCollector : IBuildLogCollector
                 var message = commit.Message;
 
                 if (message.Contains("changelog commit")) continue;
+                
                 if (message.Contains(config.InitialLogKey) || message.Contains(_buildLogCache.LastBuildVersion))
                 {
                     if (currentLog.Version != string.Empty && currentLog.Messages?.Count > 0) logs.Add(currentLog);
@@ -47,14 +48,16 @@ internal class BuildLogCollector : IBuildLogCollector
                     break;
                 }
 
-                if (message.Contains(config.BuildKeyMessage))
+                var key = config.KeyMessages!.FirstOrDefault(key => message.Contains(key));
+                
+                if (key != null)
                 {
                     if (currentLog.Version != string.Empty)
                     {
                         logs.Add(currentLog);
                     }
 
-                    var version = GetVersionFromString(message);
+                    var version = GetVersionFromString(message, key);
                     var date = GetDateStringFromDateTimeOffset(commit.Author.When);
                     
                     currentLog = new BuildLogData(version, date, new List<string>());
@@ -69,11 +72,11 @@ internal class BuildLogCollector : IBuildLogCollector
         return Task.FromResult(logs);
     }
 
-    private string GetVersionFromString(string str)
+    private string GetVersionFromString(string str, string key)
     {
         return str.Replace(" ", "")
             .Replace("\n", "")
-            .Replace("Build:", "");
+            .Replace(key, "");
     }
 
     private string GetDateStringFromDateTimeOffset(DateTimeOffset dateTimeOffset)
