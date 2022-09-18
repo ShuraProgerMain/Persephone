@@ -31,7 +31,7 @@ internal class SettingsBroker : ISettingsBroker
         {
             _defaultBranchConfig = new BranchSettingConfig(
                 "main",
-                "Changelog Init",
+                "Init commit",
                 "Build:",
                 @"D:\UnityProjects\RustAndUnityTest\Assets\Plugins\TestDLL",
                 10
