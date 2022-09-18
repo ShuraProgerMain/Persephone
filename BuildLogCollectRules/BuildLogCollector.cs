@@ -24,7 +24,7 @@ internal class BuildLogCollector : IBuildLogCollector
         var currentLog = new BuildLogData(string.Empty, DateTime.Now.ToString(CultureInfo.InvariantCulture),
             new List<string>());
 
-        branchName = branchName == string.Empty ? _settingsBroker.DefaultSetting.BranchName : branchName;
+        branchName = branchName == string.Empty ? _settingsBroker.DefaultBranchSetting.BranchName : branchName;
         var config = _settingsBroker.GetSettings(branchName);
 
 

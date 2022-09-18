@@ -37,4 +37,9 @@ public class PersephoneApi : IPersephoneApi
     {
         return Context!.LogsFileGenerateController;
     }
+
+    public ISettingsController GetSettingsController()
+    {
+        return Context!.SettingsController;
+    }
 }

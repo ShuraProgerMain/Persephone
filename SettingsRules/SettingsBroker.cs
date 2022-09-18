@@ -11,14 +11,10 @@ internal class SettingsBroker : ISettingsBroker
 {
     private readonly string _fileName = @"\settings.hehe";
 
-    private IList<SettingsConfig> _settingsConfigs = new Collection<SettingsConfig>();
-    private SettingsConfig _defaultConfig = new();
+    private IList<BranchSettingConfig> _settingsConfigs = new Collection<BranchSettingConfig>();
+    private BranchSettingConfig _defaultBranchConfig = new();
 
-    public SettingsConfig DefaultSetting => _defaultConfig;
-
-    public SettingsBroker(IContext context)
-    {
-    }
+    public BranchSettingConfig DefaultBranchSetting => _defaultBranchConfig;
 
     public async Task Init()
     {
@@ -32,7 +28,7 @@ internal class SettingsBroker : ISettingsBroker
         }
         else
         {
-            _defaultConfig = new SettingsConfig(
+            _defaultBranchConfig = new BranchSettingConfig(
                 "main",
                 "Changelog Init",
                 "Build:",
@@ -40,37 +36,38 @@ internal class SettingsBroker : ISettingsBroker
                 10
             );
 
-            await TryAddNewSettings(_defaultConfig);
+            await TryAddNewSettings(_defaultBranchConfig);
         }
     }
 
-    public async Task<bool> TryAddNewSettings(SettingsConfig settingsConfig)
+    public async Task<bool> TryAddNewSettings(BranchSettingConfig branchSettingConfig)
     {
-        if (_settingsConfigs.Any(config => config.BranchName == settingsConfig.BranchName))
+        if (_settingsConfigs.Any(config => config.BranchName == branchSettingConfig.BranchName))
         {
                Console.LogWarning(
                 "Couldn't add it because it already BranchName exists. If you want change branch settings, please, use TryUpdateSettings");
             return false;
         }
 
-        _settingsConfigs.Add(settingsConfig);
+        _settingsConfigs.Add(branchSettingConfig);
 
         await SaveData();
 
         return true;
     }
 
-    public async Task<bool> TryUpdateSettings(SettingsConfig settingsConfig)
+    public async Task<bool> TryUpdateSettings(BranchSettingConfig branchSettingConfig)
     {
-        if (_settingsConfigs.All(config => config.BranchName != settingsConfig.BranchName))
+        if (_settingsConfigs.All(config => config.BranchName != branchSettingConfig.BranchName))
         {
             Console.LogWarning(
                 "Couldn't add it because there isn't one yet. If you want add branch settings, please, use TryAddNewSettings");
-            _settingsConfigs.Add(settingsConfig);
+
+            return false;
         }
 
-        var oldConfig = _settingsConfigs.First(config => config.BranchName == settingsConfig.BranchName);
-        oldConfig.Join(settingsConfig);
+        var oldConfig = _settingsConfigs.First(config => config.BranchName == branchSettingConfig.BranchName);
+        oldConfig.Join(branchSettingConfig);
 
         await SaveData();
 
@@ -83,7 +80,7 @@ internal class SettingsBroker : ISettingsBroker
         
         if (config is not null)
         {
-            _defaultConfig = config;
+            _defaultBranchConfig = config;
             
             Console.Log("Successful add default settings config");
             
@@ -94,14 +91,14 @@ internal class SettingsBroker : ISettingsBroker
         return false;
     }
 
-    public SettingsConfig GetSettings(string branchName)
+    public BranchSettingConfig GetSettings(string branchName)
     {
         var config = _settingsConfigs.FirstOrDefault(config => config.BranchName == branchName);
 
         if(config == null)
         {
             Console.LogError($"Not found SettingsConfig with name: {branchName}");
-            return DefaultSetting;
+            return DefaultBranchSetting;
         }
 
         return config;
@@ -110,7 +107,7 @@ internal class SettingsBroker : ISettingsBroker
     private async Task SaveData()
     {
         await SaveBroker.SaveSerializeData(Paths.PathToMainSaveFolder(), _fileName,
-            new SettingsBrokerConfig(_defaultConfig.BranchName, _settingsConfigs));
+            new SettingsBrokerConfig(_defaultBranchConfig.BranchName, _settingsConfigs));
     }
 
 }

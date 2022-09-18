@@ -12,5 +12,6 @@ internal interface IContext
     public IBuildLogCache BuildLogCache { get; }
     public ILogsCollectController LogsCollectController { get; }
     public ILogsFileGenerateController LogsFileGenerateController { get; }
+    public ISettingsController SettingsController { get; }
     public Task InitContext();
 }

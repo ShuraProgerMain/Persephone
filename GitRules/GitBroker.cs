@@ -14,7 +14,7 @@ internal class GitBroker : IGitBroker
 
     public List<Commit> GetRangeCommits(int range, string branchName)
     {
-        var repository = new Repository(_settingsBroker.DefaultSetting.RepositoryPath);
+        var repository = new Repository(_settingsBroker.DefaultBranchSetting.RepositoryPath);
         
         return repository.Branches[branchName].Commits.Take(range).ToList();
     }
@@ -23,7 +23,7 @@ internal class GitBroker : IGitBroker
     {
         try
         {
-            var repository = new Repository(_settingsBroker.DefaultSetting.RepositoryPath);
+            var repository = new Repository(_settingsBroker.DefaultBranchSetting.RepositoryPath);
 
             var state = repository.RetrieveStatus(new StatusOptions()).Modified.FirstOrDefault(file => file.FilePath.Contains(fileToCommit.Replace(@"\", "/")));;
 
@@ -48,7 +48,7 @@ internal class GitBroker : IGitBroker
     {
         //TODO: add "autoPush bool" to settingsData
 
-        using var repo = new Repository(_settingsBroker.DefaultSetting.RepositoryPath);
+        using var repo = new Repository(_settingsBroker.DefaultBranchSetting.RepositoryPath);
         Remote remote = repo.Network.Remotes["origin"];
         var options = new PushOptions();
         options.CredentialsProvider = (_url, _user, _cred) => 

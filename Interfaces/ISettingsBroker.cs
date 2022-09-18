@@ -4,9 +4,10 @@ namespace CARDINAL.Persephone.Interfaces;
 
 internal interface ISettingsBroker
 {
-    public SettingsConfig DefaultSetting { get; }
+    public BranchSettingConfig DefaultBranchSetting { get; }
     public Task Init();
-    public Task<bool> TryAddNewSettings(SettingsConfig settingsConfig);
-    public Task<bool> TryUpdateSettings(SettingsConfig settingsConfig);
-    public SettingsConfig GetSettings(string branchName);
+    public Task<bool> TryAddNewSettings(BranchSettingConfig branchSettingConfig);
+    public Task<bool> TryUpdateSettings(BranchSettingConfig branchSettingConfig);
+    public bool TrySetDefaultSettings(string branchName);
+    public BranchSettingConfig GetSettings(string branchName);
 }

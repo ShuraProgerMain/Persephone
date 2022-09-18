@@ -11,7 +11,7 @@ internal class ChangeLogFileBroker : IChangeLogFileBroker
     private List<string> _allFileLogLines = new();
     
     private int _targetLine;
-    private bool FileAvailable => File.Exists(_settingsBroker.DefaultSetting.RepositoryPath + $"/{_fileName}");
+    private bool FileAvailable => File.Exists(_settingsBroker.DefaultBranchSetting.RepositoryPath + $"/{_fileName}");
     
     public ChangeLogFileBroker(IContext context)
     {
@@ -38,12 +38,12 @@ internal class ChangeLogFileBroker : IChangeLogFileBroker
             _allFileLogLines.Insert(_targetLine, $"## {logs[i].Version} *({logs[i].PushDate})*");
         }
 
-        await File.WriteAllLinesAsync(_settingsBroker.DefaultSetting.RepositoryPath + $"/{_fileName}", _allFileLogLines);
+        await File.WriteAllLinesAsync(_settingsBroker.DefaultBranchSetting.RepositoryPath + $"/{_fileName}", _allFileLogLines);
     }
 
     private async Task ChangelogFileInitialize()
     {
-        var pathToFile = _settingsBroker.DefaultSetting.RepositoryPath + $"/{_fileName}";
+        var pathToFile = _settingsBroker.DefaultBranchSetting.RepositoryPath + $"/{_fileName}";
         
         if (!File.Exists(pathToFile))
         {
@@ -54,13 +54,13 @@ internal class ChangeLogFileBroker : IChangeLogFileBroker
                            "<br /> \n\n";
 
 
-            await SaveBroker.SaveText(_settingsBroker.DefaultSetting.RepositoryPath + "/", _fileName, initData);
+            await SaveBroker.SaveText(_settingsBroker.DefaultBranchSetting.RepositoryPath + "/", _fileName, initData);
         }
     }
 
     private async Task ReadAllLines()
     {
-        _allFileLogLines = (await File.ReadAllLinesAsync(_settingsBroker.DefaultSetting.RepositoryPath + $"/{_fileName}")).ToList();
+        _allFileLogLines = (await File.ReadAllLinesAsync(_settingsBroker.DefaultBranchSetting.RepositoryPath + $"/{_fileName}")).ToList();
 
         for (int i = 0; i < _allFileLogLines.Count; i++)
         {

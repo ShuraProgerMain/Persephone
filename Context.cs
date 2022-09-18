@@ -13,10 +13,13 @@ internal class Context : IContext
     private IGitBroker _gitBroker;
     private IChangeLogFileBroker _changeLogFileBroker;
     private ISettingsBroker _settingsBroker;
+    
     private IBuildLogCollector _buildLogCollector;
     private IBuildLogCache _buildLogCache;
+    
     private ILogsCollectController _logsCollectController;
     private ILogsFileGenerateController _logsFileGenerateController;
+    private ISettingsController _settingsController;
 
     public IGitBroker GitBroker => _gitBroker;
     public IChangeLogFileBroker ChangeLogFileBroker => _changeLogFileBroker;
@@ -26,6 +29,7 @@ internal class Context : IContext
     
     public ILogsCollectController LogsCollectController => _logsCollectController;
     public ILogsFileGenerateController LogsFileGenerateController => _logsFileGenerateController;
+    public ISettingsController SettingsController => _settingsController;
 
     public async Task InitContext()
     {
@@ -39,7 +43,7 @@ internal class Context : IContext
 
     private async Task BrokerBindings()
     {
-        _settingsBroker = new SettingsBroker(this);
+        _settingsBroker = new SettingsBroker();
         _gitBroker = new GitBroker(this);
         await _settingsBroker.Init();
         _changeLogFileBroker = new ChangeLogFileBroker(this);
@@ -49,5 +53,6 @@ internal class Context : IContext
     {
         _logsCollectController = new LogsCollectController(this);
         _logsFileGenerateController = new LogsFileGenerateController(this);
+        _settingsController = new SettingsController(this);
     }
 }
