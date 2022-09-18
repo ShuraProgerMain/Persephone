@@ -1,0 +1,12 @@
+D:\C#Projects\ChangelogBot\ChangelogGenerator\obj\Debug\net6.0\ChangelogGenerator.csproj.AssemblyReference.cache
+D:\C#Projects\ChangelogBot\ChangelogGenerator\obj\Debug\net6.0\ChangelogGenerator.GeneratedMSBuildEditorConfig.editorconfig
+D:\C#Projects\ChangelogBot\ChangelogGenerator\obj\Debug\net6.0\ChangelogGenerator.AssemblyInfoInputs.cache
+D:\C#Projects\ChangelogBot\ChangelogGenerator\obj\Debug\net6.0\ChangelogGenerator.AssemblyInfo.cs
+D:\C#Projects\ChangelogBot\ChangelogGenerator\obj\Debug\net6.0\ChangelogGenerator.csproj.CoreCompileInputs.cache
+D:\C#Projects\ChangelogBot\ChangelogGenerator\bin\Debug\net6.0\CARDINAL.Persephone.deps.json
+D:\C#Projects\ChangelogBot\ChangelogGenerator\bin\Debug\net6.0\CARDINAL.Persephone.dll
+D:\C#Projects\ChangelogBot\ChangelogGenerator\bin\Debug\net6.0\CARDINAL.Persephone.pdb
+D:\C#Projects\ChangelogBot\ChangelogGenerator\obj\Debug\net6.0\CARDINAL.Persephone.dll
+D:\C#Projects\ChangelogBot\ChangelogGenerator\obj\Debug\net6.0\refint\CARDINAL.Persephone.dll
+D:\C#Projects\ChangelogBot\ChangelogGenerator\obj\Debug\net6.0\CARDINAL.Persephone.pdb
+D:\C#Projects\ChangelogBot\ChangelogGenerator\obj\Debug\net6.0\ref\CARDINAL.Persephone.dll
