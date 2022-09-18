@@ -7,7 +7,7 @@ namespace CARDINAL.Persephone.ChangelogFileGenerationRules;
 internal class ChangeLogFileBroker : IChangeLogFileBroker
 {
     private readonly ISettingsBroker _settingsBroker;
-    private readonly string _fileName = "Changelog.md";
+    private readonly string _fileName;
     private List<string> _allFileLogLines = new();
     
     private int _targetLine;
@@ -16,6 +16,7 @@ internal class ChangeLogFileBroker : IChangeLogFileBroker
     public ChangeLogFileBroker(IContext context)
     {
         _settingsBroker = context.SettingsBroker;
+        _fileName = _settingsBroker.SystemData.ChangelogSaveFile;
     }
 
     public async Task UpdateLogs(IList<BuildLogData> logs)

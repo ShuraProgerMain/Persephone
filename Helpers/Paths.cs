@@ -2,8 +2,8 @@
 
 public static class Paths
 {
-    public static string PathToMainSaveFolder()
-    {
-        return Path.GetTempPath() + "Persephone";
-    }
+    // public static string PathToMainSaveFolder()
+    // {
+    //     return Path.GetTempPath() + "Persephone";
+    // }
 }

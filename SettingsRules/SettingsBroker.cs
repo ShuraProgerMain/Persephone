@@ -9,17 +9,18 @@ namespace CARDINAL.Persephone.SettingsRules;
 
 internal class SettingsBroker : ISettingsBroker
 {
-    private readonly string _fileName = @"\settings.hehe";
+    private readonly SystemData _systemData = new SystemData();
 
     private IList<BranchSettingConfig> _settingsConfigs = new Collection<BranchSettingConfig>();
     private BranchSettingConfig _defaultBranchConfig = new();
 
     public BranchSettingConfig DefaultBranchSetting => _defaultBranchConfig;
+    public SystemData SystemData => _systemData;
 
     public async Task Init()
     {
         SettingsBrokerConfig? saveLoad =
-            SaveBroker.LoadSerializeData<SettingsBrokerConfig>(Paths.PathToMainSaveFolder(), _fileName);
+            SaveBroker.LoadSerializeData<SettingsBrokerConfig>(_systemData.PathToMainSaveFolder, _systemData.SettingsSaveFile);
 
         if (saveLoad is not null)
         {
@@ -106,7 +107,7 @@ internal class SettingsBroker : ISettingsBroker
 
     private async Task SaveData()
     {
-        await SaveBroker.SaveSerializeData(Paths.PathToMainSaveFolder(), _fileName,
+        await SaveBroker.SaveSerializeData(_systemData.PathToMainSaveFolder, _systemData.SettingsSaveFile,
             new SettingsBrokerConfig(_defaultBranchConfig.BranchName, _settingsConfigs));
     }
 

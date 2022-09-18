@@ -1,9 +1,9 @@
 ﻿using System.Collections.ObjectModel;
 using CARDINAL.Persephone.Configs;
 using CARDINAL.Persephone.Dates;
-using CARDINAL.Persephone.Helpers;
 using CARDINAL.Persephone.Interfaces;
 using CARDINAL.Persephone.SaveRules;
+using CARDINAL.Persephone.SettingsRules;
 
 namespace CARDINAL.Persephone.BuildLogCollectRules;
 
@@ -19,12 +19,15 @@ internal class BuildLogCache : IBuildLogCache
     public string LastBuildVersion => _lastBuildVersion;
 
 
+    private readonly SystemData _systemData;
     private readonly string _fileName = "/cache.hehe";
 
     public BuildLogCache(IContext context)
     {
+        _systemData = context.SettingsBroker.SystemData;
+        
         BuildLogCacheConfig? saveLoad =
-            SaveBroker.LoadSerializeData<BuildLogCacheConfig>(Paths.PathToMainSaveFolder(), _fileName);
+            SaveBroker.LoadSerializeData<BuildLogCacheConfig>(_systemData.PathToMainSaveFolder, _systemData.CacheSaveFile);
 
         if (saveLoad != null)
         {
@@ -57,7 +60,7 @@ internal class BuildLogCache : IBuildLogCache
         _lastLogs = logs;
         _logs?.AddRange(logs);
 
-        await SaveBroker.SaveSerializeData(Paths.PathToMainSaveFolder(), _fileName, 
+        await SaveBroker.SaveSerializeData(_systemData.PathToMainSaveFolder, _systemData.CacheSaveFile, 
             new BuildLogCacheConfig(_lastBuildVersion, _lastWritingVersion,_logs));
     }
 
@@ -85,7 +88,7 @@ internal class BuildLogCache : IBuildLogCache
         }
 
         _lastWritingVersion = _logs[0].Version;
-        await SaveBroker.SaveSerializeData(Paths.PathToMainSaveFolder(), _fileName, 
+        await SaveBroker.SaveSerializeData(_systemData.PathToMainSaveFolder, _systemData.CacheSaveFile, 
             new BuildLogCacheConfig(_lastBuildVersion, _lastWritingVersion,_logs));
         return logsForChangelog;
     }
