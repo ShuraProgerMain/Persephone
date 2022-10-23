@@ -14,7 +14,7 @@ internal class SettingsController : ISettingsController
         _settingsBroker = context.SettingsBroker;
     }
 
-    private async void AddNewBranchSettings(BranchSettingConfig config)
+    public async void AddNewBranchSettings(BranchSettingConfig config)
     {
         var result = await _settingsBroker.TryAddNewSettings(config);
 
@@ -28,7 +28,7 @@ internal class SettingsController : ISettingsController
         }
     }
     
-    private async void UpdateBranchSettings(BranchSettingConfig config)
+    public async void UpdateBranchSettings(BranchSettingConfig config)
     {
         var result = await _settingsBroker.TryUpdateSettings(config);
 
@@ -42,7 +42,7 @@ internal class SettingsController : ISettingsController
         }
     }
     
-    private void ChooseDefaultSettings(string branchName)
+    public void ChooseDefaultSettings(string branchName)
     {
         var result = _settingsBroker.TrySetDefaultSettings(branchName);
 

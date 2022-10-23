@@ -8,14 +8,10 @@
           "LibGit2Sharp.NativeBinaries": "[2.0.315-alpha.0.9]"
         },
         "compile": {
-          "lib/netcoreapp3.1/LibGit2Sharp.dll": {
-            "related": ".xml"
-          }
+          "lib/netcoreapp3.1/LibGit2Sharp.dll": {}
         },
         "runtime": {
-          "lib/netcoreapp3.1/LibGit2Sharp.dll": {
-            "related": ".xml"
-          }
+          "lib/netcoreapp3.1/LibGit2Sharp.dll": {}
         }
       },
       "LibGit2Sharp.NativeBinaries/2.0.315-alpha.0.9": {
@@ -189,7 +185,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.304\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.305\\RuntimeIdentifierGraph.json"
       }
     }
   }

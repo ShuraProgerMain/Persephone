@@ -9,7 +9,7 @@ namespace CARDINAL.Persephone.SettingsRules;
 
 internal class SettingsBroker : ISettingsBroker
 {
-    private readonly SystemData _systemData = new SystemData();
+    private readonly SystemData _systemData = new();
 
     private IList<BranchSettingConfig> _settingsConfigs = new Collection<BranchSettingConfig>();
     private BranchSettingConfig _defaultBranchConfig = new();

@@ -9,8 +9,8 @@ namespace CARDINAL.Persephone.BuildLogCollectRules;
 
 internal class BuildLogCache : IBuildLogCache
 {
-    private string _lastBuildVersion = "0.1";
-    private string _lastWritingVersion = "0.1";
+    private string _lastBuildVersion = "nothing";
+    private string _lastWritingVersion = "nothing";
 
     private List<BuildLogData> _lastLogs = new();
     private readonly List<BuildLogData>? _logs = new();
@@ -20,7 +20,6 @@ internal class BuildLogCache : IBuildLogCache
 
 
     private readonly SystemData _systemData;
-    private readonly string _fileName = "/cache.hehe";
 
     public BuildLogCache(IContext context)
     {
@@ -61,7 +60,7 @@ internal class BuildLogCache : IBuildLogCache
         _logs?.AddRange(logs);
 
         await SaveBroker.SaveSerializeData(_systemData.PathToMainSaveFolder, _systemData.CacheSaveFile, 
-            new BuildLogCacheConfig(_lastBuildVersion, _lastWritingVersion,_logs));
+            new BuildLogCacheConfig(_lastBuildVersion, _lastWritingVersion, _logs));
     }
 
     public BuildLogData GetLog(string version)

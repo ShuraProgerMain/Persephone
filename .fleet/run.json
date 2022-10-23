@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "type": "dotnet",
+            "name": "run",
+            "projectPath": "D:/C#Projects/ChangelogBot/ChengelogGeneratorTester/ChangelogGeneratorTester/",
+            "exePath": "D:/C#Projects/ChangelogBot/ChengelogGeneratorTester/ChangelogGeneratorTester/bin/Debug/net6.0/ChangelogGeneratorTester.exe",
+            "args": [],
+        },
+    ]
+}
